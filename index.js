@@ -5,6 +5,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 const app = express();
+// Carpeta pública
+app.use(express.static('uploads'));
+
+// Agregar body parser
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ extended: true }));
 
 // Habilita las variables de entorno
 dotenv.config({ path: 'variables.env' });
@@ -33,13 +39,6 @@ mongoose.connect(process.env.DB_URL, {
 	useFindAndModify: false,
 	useUnifiedTopology: true
 });
-
-// Agregar body parser
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json({ extended: true }));
-
-// Carpeta pública
-app.use(express.static('uploads'));
 
 // Agregar las rutas
 app.use('/', routes);
